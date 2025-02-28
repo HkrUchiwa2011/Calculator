@@ -120,7 +120,8 @@
         window.onpopstate = function() {
             goBack();
         };
-    <script>
+ 
+<script>
 document.addEventListener('DOMContentLoaded', function() {
     const audio = document.getElementById('bg-music');
     
@@ -129,7 +130,8 @@ document.addEventListener('DOMContentLoaded', function() {
         document.removeEventListener('click', playMusic);
     }
     
-    document.addEventListener('click', playMusic);
+    // Ne joue la musique que si l'utilisateur clique sur le document
+    document.body.addEventListener('click', playMusic, { once: true });
 });
 </script>
 </body>
