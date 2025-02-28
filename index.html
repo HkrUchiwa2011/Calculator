@@ -34,7 +34,7 @@
         button:hover {
             background-color: #555;
         }
-        #content {
+        #content, #intro {
             display: none;
             padding: 20px;
         }
@@ -52,7 +52,14 @@
         Votre navigateur ne supporte pas l'audio.
     </audio>
 
-    <div class="container" id="menu">
+    <div class="container" id="start">
+        <img src="D.jpg" alt="Image d'accueil">
+        <p><strong>Je ne savais pas que mes mots allaient te blesser...</strong></p>
+        <button onclick="showIntro()">Continuer</button>
+    </div>
+
+    <div class="container" id="intro">
+        <p>Je sais que les mots ne suffisent pas toujours... Mais j'aimerais quand même essayer.</p>
         <button onclick="showContent('excuses')">💬 Excuses</button>
         <button onclick="showContent('images')">🖼 Images</button>
     </div>
@@ -60,7 +67,17 @@
     <div id="content">
         <button onclick="goBack()">← Retour</button>
         <div id="excuses-content" style="display: none;">
-            <p>Voici mes excuses les plus sincères... Pardon ! 🥺</p>
+            <p><strong>Je suis désolé...</strong></p>
+            <p>
+                Je ne savais pas que mes mots allaient te blesser, que mes actions allaient te faire du mal.  
+                Ce n'était jamais mon intention, et pourtant, je t'ai blessé.  
+                <br><br>
+                J'aimerais pouvoir remonter le temps, effacer ces moments où j'ai pu te faire du tort,  
+                mais tout ce que je peux faire, c'est te promettre que j'apprends, que je m'améliore,  
+                et que je veux être une meilleure personne pour toi.  
+                <br><br>
+                Pardonnes-moi, s'il te plaît... 🥺💔
+            </p>
         </div>
         <div id="images-content" style="display: none;">
             <p>Voici les images que j'ai trouvées :</p>
@@ -68,13 +85,22 @@
             <img src="2.jpg" alt="Image 2">
             <img src="3.jpg" alt="Image 3">
             <img src="4.jpg" alt="Image 4">
-            <p>... Pitié, pardonne-moi 😭</p>
+            <img src="5.jpg" alt="Image 5">
+            <img src="6.jpg" alt="Image 6">
+            <img src="7.jpg" alt="Image 7">
+            <img src="8.jpg" alt="Image 8">
+            <p><strong>Je veux juste que tu saches à quel point tu comptes pour moi... 💖</strong></p>
         </div>
     </div>
 
     <script>
+        function showIntro() {
+            document.getElementById("start").style.display = "none";
+            document.getElementById("intro").style.display = "flex";
+        }
+
         function showContent(type) {
-            document.getElementById("menu").style.display = "none";
+            document.getElementById("intro").style.display = "none";
             document.getElementById("content").style.display = "block";
 
             if (type === "excuses") {
@@ -87,7 +113,7 @@
         }
 
         function goBack() {
-            document.getElementById("menu").style.display = "flex";
+            document.getElementById("intro").style.display = "flex";
             document.getElementById("content").style.display = "none";
         }
 
