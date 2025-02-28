@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saiba...</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: black;
+            color: white;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .screen {
+            position: absolute;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            transition: opacity 0.8s, transform 0.8s;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        #screen1 {
+            background: url('D.jpg') no-repeat center center/cover;
+        }
+
+        #screen1 p {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20vh;
+            opacity: 0;
+            animation: writeText 3s forwards;
+        }
+
+        @keyframes writeText {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        button {
+            padding: 12px 24px;
+            background: #ff4d4d;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 30vh;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .choices {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 50px;
+        }
+
+        .screen-content {
+            font-size: 20px;
+            padding: 20px;
+            max-width: 90%;
+            text-align: left;
+            margin-top: 20px;
+            line-height: 1.5;
+        }
+
+        .slider img {
+            width: 80%;
+            border-radius: 10px;
+            transition: opacity 1s;
+        }
+    </style>
+</head>
+<body>
+    <audio autoplay loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="screen1" class="screen">
+        <p>Saiba, je suis vraiment désolé...</p>
+        <button onclick="showScreen(2)">Continuer</button>
+    </div>
+
+    <div id="screen2" class="screen hidden">
+        <div class="choices">
+            <button onclick="showScreen(3)">Excuses</button>
+            <button onclick="showScreen(4)">Images</button>
+        </div>
+    </div>
+
+    <div id="screen3" class="screen hidden">
+        <div class="screen-content">
+            <p>
+                Saiba, Uchiwa de ton vrai nom... Non, désolé, je ne sais pas.  
+                Je ne t’ai même jamais demandé ton vrai nom… Je suis horrible, je le sais.  
+                <br><br>
+                Pardonne-moi… Je ne voulais pas dire ces choses-là.  
+                Je sais que ce n’est pas la première fois… Je ne voulais pas te blesser, vraiment 😔.  
+                J’ai écrit tout ça juste pour que tu me répondes, juste pour que la discussion soit animée…  
+                Mais ce n'était pas une excuse.  
+                <br><br>
+                Tu me comprends ? 😔  
+                <br><br>
+                Je ne supporte pas l’idée que tu sois fâchée contre moi.  
+                Tu es spéciale… Et moi, comme un idiot, j’ai tout gâché.  
+                Je ne peux pas effacer ce que j’ai dit, mais je peux te promettre que ça ne se reproduira plus.  
+                <br><br>
+                <b>Alors s’il te plaît… Pardonne-moi… 😔</b>
+            </p>
+        </div>
+    </div>
+
+    <div id="screen4" class="screen hidden">
+        <div class="screen-content">
+            <p>Voici les images que j'ai trouvées, j'espère qu'elles te plairont 😔</p>
+            <div class="slider">
+                <img id="image-slider" src="1.jpg" alt="Image">
+            </div>
+            <button onclick="nextImage()">→</button>
+            <p id="final-message" style="display: none; margin-top: 20px;">
+                Alors je t'en supplie, pardonne-moi et écris-moi 😔
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function showScreen(screenNumber) {
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.add('hidden');
+            });
+            document.getElementById('screen' + screenNumber).classList.remove('hidden');
+            history.pushState({ screen: screenNumber }, "", "#screen" + screenNumber);
+        }
+
+        let currentImage = 1;
+        function nextImage() {
+            currentImage++;
+            if (currentImage > 8) {
+                document.getElementById("final-message").style.display = "block";
+            } else {
+                document.getElementById("image-slider").src = currentImage + ".jpg";
+            }
+        }
+
+        window.addEventListener('popstate', function (event) {
+            if (event.state && event.state.screen) {
+                showScreen(event.state.screen);
+            } else {
+                showScreen(1);
+            }
+        });
+    </script>
+</body>
+</html>
