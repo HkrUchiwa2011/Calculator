@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saiba...</title>
+    <title>Saiba, je suis désolé...</title>
     <style>
         * {
             margin: 0;
@@ -14,21 +14,62 @@
         body {
             background-color: black;
             color: white;
-            overflow-x: hidden;
+            overflow: hidden;
         }
-        .container, .interface {
-            position: absolute;
+        .container {
+            position: relative;
             width: 100%;
             height: 100vh;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
             padding: 20px;
+        }
+        .background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('D.jpg') center/cover no-repeat;
+            z-index: -1;
+        }
+        .text {
+            font-size: 24px;
+            font-weight: bold;
+            opacity: 0;
+            animation: fadeIn 4s forwards;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        .continue {
+            position: absolute;
+            bottom: 50px;
+            padding: 15px 30px;
+            font-size: 18px;
+            background: red;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .continue:hover {
+            background: darkred;
+        }
+        .hidden {
+            display: none;
+        }
+        .interface {
+            width: 100%;
+            height: 100vh;
+            background: black;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
             overflow-y: auto;
         }
-        .hidden { display: none; }
         .case {
             width: 80%;
             max-width: 400px;
@@ -41,66 +82,74 @@
             border: 1px solid white;
             transition: 0.3s;
         }
-        .case:hover { background: rgba(255, 255, 255, 0.2); }
+        .case:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
         .content {
             padding: 20px;
             font-size: 18px;
-            text-align: left;
-            max-width: 600px;
+        }
+        .images {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
             overflow-y: auto;
-            height: 80vh;
+            max-height: 60vh;
         }
         .images img {
-            width: 45%;
-            max-width: 180px;
-            margin: 5px;
-            border-radius: 5px;
-        }
-        .intro img {
             width: 100%;
             max-width: 400px;
-            border-radius: 5px;
-            margin-bottom: 20px;
+            border-radius: 10px;
+            transition: transform 0.5s;
+        }
+        .images img:hover {
+            transform: scale(1.05);
         }
     </style>
 </head>
 <body>
-    <audio autoplay loop>
-        <source src="music.mp3" type="audio/mp3">
-    </audio>
-
     <div class="container" id="intro">
-        <img src="D.jpg" alt="Image d'accueil">
-        <div class="text">Saiba, je suis désolé...<br>Ne quitte pas, va jusqu'au bout...</div>
-        <button onclick="showMain()">Continuer</button>
+        <div class="background"></div>
+        <div class="text">Saiba, je suis vraiment désolé...<br>Alors pitié ne quitte pas le site.<br>Pitié vas jusqu'au bout.</div>
+        <button class="continue" onclick="showMain()">Commencer</button>
     </div>
 
     <div class="interface hidden" id="mainInterface">
-        <div class="case" onclick="showContent('excuses')">💬 Excuses</div>
-        <div class="case" onclick="showContent('images')">🖼️ Images</div>
+        <div class="case" onclick="showExcuses()">💬 Excuses</div>
+        <div class="case" onclick="showImages()">🖼️ Images</div>
     </div>
 
     <div class="interface hidden" id="excusesInterface">
         <div class="content">
-            <p>Saiba…</p>
-            <p>Je ne sais même pas par où commencer. Je suis désolé… Désolé d’avoir écrit ces mots, d’avoir blessé quelqu’un qui ne méritait pas ça. Je ne voulais pas… Je te jure que ce n’était pas mon intention.</p>
-            <p>Saiba, Uchiwa de ton vrai nom… non, désolé, je ne sais pas. Je ne t’ai jamais demandé ça, et aujourd’hui je me rends compte que je ne connais même pas cette partie de toi… et pourtant, tu comptes énormément pour moi.</p>
-            <p>Je ne savais pas que mes paroles allaient te toucher de cette manière. Je ne savais pas que…</p>
+            <p>Saiba… Je ne sais même pas par où commencer. Je suis désolé… 😔</p>
+            <p>Je regrette chaque mot mal placé, chaque phrase qui a pu te blesser.</p>
+            <p>Je suis un idiot, mais je veux que tu voies que je tiens vraiment à toi.</p>
+            <p>Si je pouvais remonter le temps, je ne referais pas cette erreur...</p>
+            <p>Pardonne-moi, Saiba. 😭</p>
         </div>
     </div>
 
     <div class="interface hidden" id="imagesInterface">
-        <div class="images">
-            <img src="1.jpg" alt="Image 1">
-            <img src="2.jpg" alt="Image 2">
-            <img src="3.jpg" alt="Image 3">
-            <img src="4.jpg" alt="Image 4">
-            <img src="5.jpg" alt="Image 5">
-            <img src="6.jpg" alt="Image 6">
-            <img src="7.jpg" alt="Image 7">
-            <img src="8.jpg" alt="Image 8">
+        <div class="content">
+            <p>Voici les images que j'ai pu te trouver, j'espère qu'elles te plairont 😔</p>
+            <div class="images">
+                <img src="1.jpg">
+                <img src="2.jpg">
+                <img src="3.jpg">
+                <img src="4.jpg">
+                <img src="5.jpg">
+                <img src="6.jpg">
+                <img src="7.jpg">
+                <img src="8.jpg">
+            </div>
+            <p>Pitié, pardonne-moi... 😭</p>
         </div>
     </div>
+
+    <audio id="background-music" autoplay loop>
+        <source src="music.mp3" type="audio/mp3">
+    </audio>
 
     <script>
         function showMain() {
@@ -108,24 +157,40 @@
             document.getElementById("mainInterface").classList.remove("hidden");
         }
 
-        function showContent(section) {
+        function showExcuses() {
             document.getElementById("mainInterface").classList.add("hidden");
-            document.getElementById(section + "Interface").classList.remove("hidden");
+            document.getElementById("excusesInterface").classList.remove("hidden");
         }
 
-        document.addEventListener("keydown", function(event) {
-            if (event.key === "Backspace") {
-                event.preventDefault();
-                goBack();
+        function showImages() {
+            document.getElementById("mainInterface").classList.add("hidden");
+            document.getElementById("imagesInterface").classList.remove("hidden");
+        }
+
+        function goBack() {
+            if (!document.getElementById("mainInterface").classList.contains("hidden")) {
+                document.getElementById("intro").classList.remove("hidden");
+                document.getElementById("mainInterface").classList.add("hidden");
+            } else if (!document.getElementById("excusesInterface").classList.contains("hidden")) {
+                document.getElementById("mainInterface").classList.remove("hidden");
+                document.getElementById("excusesInterface").classList.add("hidden");
+            } else if (!document.getElementById("imagesInterface").classList.contains("hidden")) {
+                document.getElementById("mainInterface").classList.remove("hidden");
+                document.getElementById("imagesInterface").classList.add("hidden");
+            }
+        }
+
+        document.addEventListener("click", function () {
+            document.getElementById("background-music").play();
+        });
+
+        document.addEventListener("visibilitychange", function() {
+            if (document.visibilityState === "visible") {
+                document.getElementById("background-music").play();
             }
         });
 
-        function goBack() {
-            document.querySelectorAll(".interface").forEach(e => e.classList.add("hidden"));
-            document.getElementById("mainInterface").classList.remove("hidden");
-        }
-
-        window.addEventListener("popstate", function() {
+        window.addEventListener("popstate", function () {
             goBack();
         });
     </script>
