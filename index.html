@@ -14,7 +14,7 @@
         body {
             background-color: black;
             color: white;
-            overflow: hidden;
+            overflow-x: hidden;
         }
         .container, .interface {
             position: absolute;
@@ -25,6 +25,8 @@
             align-items: center;
             justify-content: center;
             text-align: center;
+            padding: 20px;
+            overflow-y: auto;
         }
         .hidden { display: none; }
         .case {
@@ -40,27 +42,20 @@
             transition: 0.3s;
         }
         .case:hover { background: rgba(255, 255, 255, 0.2); }
-        .content { padding: 20px; font-size: 18px; }
+        .content { padding: 20px; font-size: 18px; text-align: left; max-width: 600px; }
         .images img {
             width: 45%;
             max-width: 180px;
             margin: 5px;
             border-radius: 5px;
         }
-        .back-btn {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            padding: 10px;
-            background: white;
-            color: black;
-            cursor: pointer;
-            border-radius: 5px;
-            display: none;
-        }
     </style>
 </head>
 <body>
+    <audio autoplay loop>
+        <source src="musique.mp3" type="audio/mp3">
+    </audio>
+
     <div class="container" id="intro">
         <div class="text">Saiba, je suis vraiment désolé...<br>Alors pitié ne quitte pas le site.<br>Pitié vas jusqu'au bout.</div>
         <button onclick="showMain()">Continuer</button>
@@ -76,66 +71,39 @@
             <p>Saiba…</p>
             <p>Je ne sais même pas par où commencer. Je suis désolé… Désolé d’avoir écrit ces mots, d’avoir blessé quelqu’un qui ne méritait pas ça. Je ne voulais pas… Je te jure que ce n’était pas mon intention.</p>
             <p>Saiba, Uchiwa de ton vrai nom… non, désolé, je ne sais pas. Je ne t’ai jamais demandé ça, et aujourd’hui je me rends compte que je ne connais même pas cette partie de toi… et pourtant, tu comptes énormément pour moi.</p>
-            <p>Je ne savais pas que mes paroles allaient te toucher de cette manière. Je ne savais pas qu’en essayant juste de provoquer une réaction, j’étais en train de te faire du mal. Je ne savais pas… et c’est bien ça le problème. J’aurais dû savoir. J’aurais dû réfléchir.</p>
-            <p>Et maintenant, je regrette. Je regrette chaque mot mal placé, chaque phrase qui a pu te faire douter, chaque seconde où j’ai été maladroit.</p>
-            <p>Je suis horrible, je le sais… mais ce que je ressens pour toi est réel. Ce que je veux, c’est juste qu’on puisse se parler, se comprendre, que tu voies que je ne suis pas qu’un idiot qui écrit n’importe quoi sans réfléchir.</p>
-            <p>Pardonne-moi, Saiba. Ce n’est pas la première fois que je fais une erreur, mais je veux que ce soit la dernière. Je veux apprendre. Je veux être meilleur. 😔</p>
-            <p>Tu me comprends ? 🥹</p>
+            <p>Je ne savais pas que mes paroles allaient te toucher de cette manière. Je ne savais pas que…</p>
         </div>
     </div>
 
     <div class="interface hidden" id="imagesInterface">
-        <div class="content">
-            <p>Voici les images que j'ai pu te trouver, j'espère qu'elles te plairont 😔</p>
-            <div class="images">
-                <img src="1.jpg">
-                <img src="2.jpg">
-                <img src="3.jpg">
-                <img src="4.jpg">
-                <img src="5.jpg">
-                <img src="6.jpg">
-                <img src="7.jpg">
-                <img src="8.jpg">
-            </div>
-            <p>Alors, je t’en supplie, pardonne-moi et écris-moi 😔</p>
+        <div class="images">
+            <img src="image1.jpg" alt="Image 1">
+            <img src="image2.jpg" alt="Image 2">
         </div>
     </div>
 
-    <button class="back-btn" id="backButton" onclick="goBack()">Retour</button>
-
-    <audio id="background-music" loop>
-        <source src="music.mp3" type="audio/mp3">
-    </audio>
-
     <script>
-        let musicStarted = false;
-
         function showMain() {
             document.getElementById("intro").classList.add("hidden");
             document.getElementById("mainInterface").classList.remove("hidden");
-            playMusic();
         }
 
-        function showContent(type) {
+        function showContent(section) {
             document.getElementById("mainInterface").classList.add("hidden");
-            document.getElementById(type + "Interface").classList.remove("hidden");
-            document.getElementById("backButton").style.display = "block";
+            document.getElementById(section + "Interface").classList.remove("hidden");
         }
+
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Backspace") {
+                event.preventDefault();
+                goBack();
+            }
+        });
 
         function goBack() {
-            document.querySelectorAll(".interface").forEach(el => el.classList.add("hidden"));
+            document.querySelectorAll(".interface").forEach(e => e.classList.add("hidden"));
             document.getElementById("mainInterface").classList.remove("hidden");
-            document.getElementById("backButton").style.display = "none";
         }
-
-        function playMusic() {
-            if (!musicStarted) {
-                document.getElementById("background-music").play();
-                musicStarted = true;
-            }
-        }
-        
-        document.addEventListener("click", playMusic);
     </script>
 </body>
 </html>
