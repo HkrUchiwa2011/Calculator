@@ -116,8 +116,8 @@
     </div>
 
     <div class="interface hidden" id="mainInterface">
-        <div class="case" onclick="showExcuses()">💬 Excuses</div>
-        <div class="case" onclick="showImages()">🖼️ Images</div>
+        <div class="case" onclick="showContent('excusesInterface')">💬 Excuses</div>
+        <div class="case" onclick="showContent('imagesInterface')">🖼️ Images</div>
     </div>
 
     <div class="interface hidden" id="excusesInterface">
@@ -157,26 +157,23 @@
             document.getElementById("mainInterface").classList.remove("hidden");
         }
 
-        function showExcuses() {
-            document.getElementById("mainInterface").classList.add("hidden");
-            document.getElementById("excusesInterface").classList.remove("hidden");
-        }
-
-        function showImages() {
-            document.getElementById("mainInterface").classList.add("hidden");
-            document.getElementById("imagesInterface").classList.remove("hidden");
+        function showContent(sectionId) {
+            document.querySelectorAll(".interface").forEach(section => {
+                section.classList.add("hidden");
+            });
+            document.getElementById(sectionId).classList.remove("hidden");
         }
 
         function goBack() {
-            if (!document.getElementById("mainInterface").classList.contains("hidden")) {
+            if (!document.getElementById("excusesInterface").classList.contains("hidden") ||
+                !document.getElementById("imagesInterface").classList.contains("hidden")) {
+                document.querySelectorAll(".interface").forEach(section => {
+                    section.classList.add("hidden");
+                });
+                document.getElementById("mainInterface").classList.remove("hidden");
+            } else {
                 document.getElementById("intro").classList.remove("hidden");
                 document.getElementById("mainInterface").classList.add("hidden");
-            } else if (!document.getElementById("excusesInterface").classList.contains("hidden")) {
-                document.getElementById("mainInterface").classList.remove("hidden");
-                document.getElementById("excusesInterface").classList.add("hidden");
-            } else if (!document.getElementById("imagesInterface").classList.contains("hidden")) {
-                document.getElementById("mainInterface").classList.remove("hidden");
-                document.getElementById("imagesInterface").classList.add("hidden");
             }
         }
 
