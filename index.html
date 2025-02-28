@@ -47,23 +47,27 @@
 </head>
 <body>
 
-    <audio id="bg-music" loop autoplay>
+    <!-- Musique (se joue automatiquement après un clic) -->
+    <audio id="bg-music" loop>
         <source src="music.mp3" type="audio/mpeg">
         Votre navigateur ne supporte pas l'audio.
     </audio>
 
+    <!-- Écran d'accueil -->
     <div class="container" id="start">
         <img src="D.jpg" alt="Image d'accueil">
         <p><strong>Je ne savais pas que mes mots allaient te blesser...</strong></p>
         <button onclick="showIntro()">Continuer</button>
     </div>
 
+    <!-- Menu principal -->
     <div class="container" id="intro">
         <p>Je sais que les mots ne suffisent pas toujours... Mais j'aimerais quand même essayer.</p>
         <button onclick="showContent('excuses')">💬 Excuses</button>
         <button onclick="showContent('images')">🖼 Images</button>
     </div>
 
+    <!-- Contenu des excuses et des images -->
     <div id="content">
         <button onclick="goBack()">← Retour</button>
         <div id="excuses-content" style="display: none;">
@@ -120,19 +124,19 @@
         window.onpopstate = function() {
             goBack();
         };
- 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const audio = document.getElementById('bg-music');
-    
-    function playMusic() {
-        audio.play().catch(error => console.log("Lecture bloquée :", error));
-        document.removeEventListener('click', playMusic);
-    }
-    
-    // Ne joue la musique que si l'utilisateur clique sur le document
-    document.body.addEventListener('click', playMusic, { once: true });
-});
-</script>
+
+        // Musique : joue automatiquement après un clic
+        document.addEventListener('DOMContentLoaded', function() {
+            const audio = document.getElementById('bg-music');
+
+            function playMusic() {
+                audio.play().catch(error => console.log("Lecture bloquée :", error));
+                document.removeEventListener('click', playMusic);
+            }
+
+            // Joue la musique au premier clic sur la page
+            document.body.addEventListener('click', playMusic, { once: true });
+        });
+    </script>
 </body>
 </html>
