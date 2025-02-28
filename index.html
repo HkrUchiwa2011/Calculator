@@ -16,58 +16,17 @@
             color: white;
             overflow: hidden;
         }
-        .container {
-            position: relative;
-            width: 100%;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-        .background {
+        .container, .interface {
             position: absolute;
             width: 100%;
-            height: 100%;
-            background: url('D.jpg') center/cover no-repeat;
-            z-index: -1;
-        }
-        .text {
-            font-size: 24px;
-            font-weight: bold;
-            opacity: 0;
-            animation: fadeIn 4s forwards;
-        }
-        @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-        .continue {
-            position: absolute;
-            bottom: 50px;
-            padding: 15px 30px;
-            font-size: 18px;
-            background: red;
-            border: none;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .continue:hover {
-            background: darkred;
-        }
-        .hidden {
-            display: none;
-        }
-        .interface {
-            width: 100%;
             height: 100vh;
-            background: black;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            overflow-y: auto;
+            text-align: center;
         }
+        .hidden { display: none; }
         .case {
             width: 80%;
             max-width: 400px;
@@ -80,49 +39,47 @@
             border: 1px solid white;
             transition: 0.3s;
         }
-        .case:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-        .content {
-            padding: 20px;
-            font-size: 18px;
-        }
-        .images {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
+        .case:hover { background: rgba(255, 255, 255, 0.2); }
+        .content { padding: 20px; font-size: 18px; }
         .images img {
             width: 45%;
             max-width: 180px;
             margin: 5px;
             border-radius: 5px;
-            transition: transform 0.5s;
         }
-        .images img:hover {
-            transform: scale(1.05);
+        .back-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            padding: 10px;
+            background: white;
+            color: black;
+            cursor: pointer;
+            border-radius: 5px;
+            display: none;
         }
     </style>
 </head>
 <body>
     <div class="container" id="intro">
-        <div class="background"></div>
         <div class="text">Saiba, je suis vraiment désolé...<br>Alors pitié ne quitte pas le site.<br>Pitié vas jusqu'au bout.</div>
-        <button class="continue" onclick="showMain()">Continuer</button>
+        <button onclick="showMain()">Continuer</button>
     </div>
 
     <div class="interface hidden" id="mainInterface">
-        <div class="case" onclick="showExcuses()">💬 Excuses</div>
-        <div class="case" onclick="showImages()">🖼️ Images</div>
+        <div class="case" onclick="showContent('excuses')">💬 Excuses</div>
+        <div class="case" onclick="showContent('images')">🖼️ Images</div>
     </div>
 
     <div class="interface hidden" id="excusesInterface">
         <div class="content">
             <p>Saiba…</p>
             <p>Je ne sais même pas par où commencer. Je suis désolé… Désolé d’avoir écrit ces mots, d’avoir blessé quelqu’un qui ne méritait pas ça. Je ne voulais pas… Je te jure que ce n’était pas mon intention.</p>
-            <p>Je regrette chaque mot mal placé, chaque phrase qui a pu te faire douter, chaque seconde où j’ai été maladroit.</p>
-            <p>Je suis horrible, je le sais… mais ce que je ressens pour toi est réel. Ce que je veux, c’est juste qu’on puisse se parler, se comprendre.</p>
-            <p>Pardonne-moi, Saiba. Et dire que je ne connais pas ton vrai prénom 🥹... Ce n’est pas la première fois que je fais une erreur, mais je veux que ce soit la dernière. 😔</p>
+            <p>Saiba, Uchiwa de ton vrai nom… non, désolé, je ne sais pas. Je ne t’ai jamais demandé ça, et aujourd’hui je me rends compte que je ne connais même pas cette partie de toi… et pourtant, tu comptes énormément pour moi.</p>
+            <p>Je ne savais pas que mes paroles allaient te toucher de cette manière. Je ne savais pas qu’en essayant juste de provoquer une réaction, j’étais en train de te faire du mal. Je ne savais pas… et c’est bien ça le problème. J’aurais dû savoir. J’aurais dû réfléchir.</p>
+            <p>Et maintenant, je regrette. Je regrette chaque mot mal placé, chaque phrase qui a pu te faire douter, chaque seconde où j’ai été maladroit.</p>
+            <p>Je suis horrible, je le sais… mais ce que je ressens pour toi est réel. Ce que je veux, c’est juste qu’on puisse se parler, se comprendre, que tu voies que je ne suis pas qu’un idiot qui écrit n’importe quoi sans réfléchir.</p>
+            <p>Pardonne-moi, Saiba. Ce n’est pas la première fois que je fais une erreur, mais je veux que ce soit la dernière. Je veux apprendre. Je veux être meilleur. 😔</p>
             <p>Tu me comprends ? 🥹</p>
         </div>
     </div>
@@ -144,55 +101,41 @@
         </div>
     </div>
 
-    <audio id="background-music" autoplay loop>
+    <button class="back-btn" id="backButton" onclick="goBack()">Retour</button>
+
+    <audio id="background-music" loop>
         <source src="music.mp3" type="audio/mp3">
     </audio>
 
     <script>
+        let musicStarted = false;
+
         function showMain() {
             document.getElementById("intro").classList.add("hidden");
             document.getElementById("mainInterface").classList.remove("hidden");
+            playMusic();
         }
 
-        function showExcuses() {
+        function showContent(type) {
             document.getElementById("mainInterface").classList.add("hidden");
-            document.getElementById("excusesInterface").classList.remove("hidden");
+            document.getElementById(type + "Interface").classList.remove("hidden");
+            document.getElementById("backButton").style.display = "block";
         }
-
-        function showImages() {
-            document.getElementById("mainInterface").classList.add("hidden");
-            document.getElementById("imagesInterface").classList.remove("hidden");
-        }
-
-        document.addEventListener("click", function () {
-            document.getElementById("background-music").play();
-        });
-
-        document.addEventListener("visibilitychange", function() {
-            if (document.visibilityState === "visible") {
-                document.getElementById("background-music").play();
-            }
-        });
-
-        document.addEventListener("keydown", function(event) {
-            if (event.key === "Backspace") {
-                event.preventDefault();
-                goBack();
-            }
-        });
 
         function goBack() {
-            if (!document.getElementById("mainInterface").classList.contains("hidden")) {
-                document.getElementById("mainInterface").classList.add("hidden");
-                document.getElementById("intro").classList.remove("hidden");
-            } else if (!document.getElementById("excusesInterface").classList.contains("hidden")) {
-                document.getElementById("excusesInterface").classList.add("hidden");
-                document.getElementById("mainInterface").classList.remove("hidden");
-            } else if (!document.getElementById("imagesInterface").classList.contains("hidden")) {
-                document.getElementById("imagesInterface").classList.add("hidden");
-                document.getElementById("mainInterface").classList.remove("hidden");
+            document.querySelectorAll(".interface").forEach(el => el.classList.add("hidden"));
+            document.getElementById("mainInterface").classList.remove("hidden");
+            document.getElementById("backButton").style.display = "none";
+        }
+
+        function playMusic() {
+            if (!musicStarted) {
+                document.getElementById("background-music").play();
+                musicStarted = true;
             }
         }
+        
+        document.addEventListener("click", playMusic);
     </script>
 </body>
 </html>
