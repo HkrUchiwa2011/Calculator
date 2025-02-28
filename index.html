@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saiba, je suis désolé...</title>
+    <title>Saiba...</title>
     <style>
         * {
             margin: 0;
@@ -42,22 +42,36 @@
             transition: 0.3s;
         }
         .case:hover { background: rgba(255, 255, 255, 0.2); }
-        .content { padding: 20px; font-size: 18px; text-align: left; max-width: 600px; }
+        .content {
+            padding: 20px;
+            font-size: 18px;
+            text-align: left;
+            max-width: 600px;
+            overflow-y: auto;
+            height: 80vh;
+        }
         .images img {
             width: 45%;
             max-width: 180px;
             margin: 5px;
             border-radius: 5px;
         }
+        .intro img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
     <audio autoplay loop>
-        <source src="musique.mp3" type="audio/mp3">
+        <source src="music.mp3" type="audio/mp3">
     </audio>
 
     <div class="container" id="intro">
-        <div class="text">Saiba, je suis vraiment désolé...<br>Alors pitié ne quitte pas le site.<br>Pitié vas jusqu'au bout.</div>
+        <img src="D.jpg" alt="Image d'accueil">
+        <div class="text">Saiba, je suis désolé...<br>Ne quitte pas, va jusqu'au bout...</div>
         <button onclick="showMain()">Continuer</button>
     </div>
 
@@ -77,8 +91,14 @@
 
     <div class="interface hidden" id="imagesInterface">
         <div class="images">
-            <img src="image1.jpg" alt="Image 1">
-            <img src="image2.jpg" alt="Image 2">
+            <img src="1.jpg" alt="Image 1">
+            <img src="2.jpg" alt="Image 2">
+            <img src="3.jpg" alt="Image 3">
+            <img src="4.jpg" alt="Image 4">
+            <img src="5.jpg" alt="Image 5">
+            <img src="6.jpg" alt="Image 6">
+            <img src="7.jpg" alt="Image 7">
+            <img src="8.jpg" alt="Image 8">
         </div>
     </div>
 
@@ -104,6 +124,10 @@
             document.querySelectorAll(".interface").forEach(e => e.classList.add("hidden"));
             document.getElementById("mainInterface").classList.remove("hidden");
         }
+
+        window.addEventListener("popstate", function() {
+            goBack();
+        });
     </script>
 </body>
 </html>
