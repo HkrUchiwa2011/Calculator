@@ -14,6 +14,7 @@
         body {
             background-color: black;
             color: white;
+            text-align: center;
             overflow: hidden;
         }
         .container {
@@ -23,7 +24,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
         }
         .background {
             position: absolute;
@@ -36,15 +36,14 @@
             font-size: 24px;
             font-weight: bold;
             opacity: 0;
-            animation: fadeIn 4s forwards;
+            animation: fadeIn 3s forwards;
         }
         @keyframes fadeIn {
             0% { opacity: 0; }
             100% { opacity: 1; }
         }
-        .continue {
-            position: absolute;
-            bottom: 50px;
+        .button {
+            margin-top: 20px;
             padding: 15px 30px;
             font-size: 18px;
             background: red;
@@ -52,7 +51,7 @@
             cursor: pointer;
             transition: 0.3s;
         }
-        .continue:hover {
+        .button:hover {
             background: darkred;
         }
         .hidden {
@@ -73,7 +72,6 @@
             padding: 20px;
             margin: 10px;
             background: rgba(255, 255, 255, 0.1);
-            text-align: center;
             font-size: 20px;
             cursor: pointer;
             border: 1px solid white;
@@ -85,16 +83,36 @@
         .content {
             padding: 20px;
             font-size: 18px;
-            display: none;
         }
-        .images img {
+        .images-container {
+            width: 80%;
+            max-width: 600px;
+            overflow-x: auto;
+            white-space: nowrap;
+            scroll-behavior: smooth;
+        }
+        .images-container img {
             width: 100%;
             max-width: 400px;
-            margin-bottom: 10px;
+            display: inline-block;
+            margin: 10px;
             transition: transform 0.5s;
         }
-        .images img:hover {
+        .images-container img:hover {
             transform: scale(1.05);
+        }
+        .back {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background: gray;
+            border: none;
+            cursor: pointer;
+        }
+        .back:hover {
+            background: darkgray;
         }
     </style>
 </head>
@@ -102,7 +120,7 @@
     <div class="container" id="intro">
         <div class="background"></div>
         <div class="text">Saiba, je suis vraiment désolé...<br>Alors pitié ne quitte pas le site.<br>Pitié vas jusqu'au bout.</div>
-        <button class="continue" onclick="showMain()">Continuer</button>
+        <button class="button" onclick="showMain()">Continuer</button>
     </div>
 
     <div class="interface hidden" id="mainInterface">
@@ -110,30 +128,26 @@
         <div class="case" onclick="showImages()">🖼️ Images</div>
     </div>
 
-    <div class="interface hidden" id="excusesInterface">
-        <div class="content">
-            <p>Saiba…
+ <div class="interface hidden" id="excusesInterface">
+    <button class="back" onclick="goBack()">⬅ Retour</button>
+    <div class="content">
+        <p>Saiba, je suis désolé… 😔</p>
+        <p>Je ne savais pas que mes paroles allaient te blesser. J’aurais dû réfléchir avant d’écrire. Je veux juste que tu saches que ce n’était pas mon intention.</p>
+        <p>Tu me pardonnes ? 🥺</p>
 
-Je ne sais même pas par où commencer. Je suis désolé… Désolé d’avoir écrit ces mots, d’avoir blessé quelqu’un qui ne méritait pas ça. Je ne voulais pas… Je te jure que ce n’était pas mon intention.
+        <br>
 
-Saiba, Uchiwa de ton vrai nom… non, désolé, je ne sais pas. Je ne t’ai jamais demandé ça, et aujourd’hui je me rends compte que je ne connais même pas cette partie de toi… et pourtant, tu comptes énormément pour moi.
-
-Je ne savais pas que mes paroles allaient te toucher de cette manière. Je ne savais pas qu’en essayant juste de provoquer une réaction, j’étais en train de te faire du mal. Je ne savais pas… et c’est bien ça le problème. J’aurais dû savoir. J’aurais dû réfléchir.
-
-Et maintenant, je regrette. Je regrette chaque mot mal placé, chaque phrase qui a pu te faire douter, chaque seconde où j’ai été maladroit.
-
-Je suis horrible, je le sais… mais ce que je ressens pour toi est réel. Ce que je veux, c’est juste qu’on puisse se parler, se comprendre, que tu voies que je ne suis pas qu’un idiot qui écrit n’importe quoi sans réfléchir.
-
-Pardonne-moi, Saiba. Ce n’est pas la première fois que je fais une erreur, mais je veux que ce soit la dernière. Je veux apprendre. Je veux être meilleur. 😔</p>
-         
-            <p>Tu me comprends ? 🥹</p>
-        </div>
+        <p>Tu comptes beaucoup pour moi, et je déteste l’idée que tu sois triste à cause de moi.</p>
+        <p>Je voudrais remonter le temps et éviter tout ça, mais je ne peux que te promettre de faire mieux.</p>
+        <p>Si tu me pardonnes, je ferai tout pour que ça ne se reproduise plus.</p>
+        <p>Je tiens à toi plus que tu ne le penses… 🥺💙</p>
     </div>
-
+ </div>
     <div class="interface hidden" id="imagesInterface">
+        <button class="back" onclick="goBack()">⬅ Retour</button>
         <div class="content">
-            <p>Voici les images que j'ai pu te trouver, j'espère qu'elles te plairont 😔</p>
-            <div class="images">
+            <p>Voici des images pour toi 😔</p>
+            <div class="images-container">
                 <img src="1.jpg">
                 <img src="2.jpg">
                 <img src="3.jpg">
@@ -143,7 +157,6 @@ Pardonne-moi, Saiba. Ce n’est pas la première fois que je fais une erreur, ma
                 <img src="7.jpg">
                 <img src="8.jpg">
             </div>
-            <p>Alors, je t’en supplie, pardonne-moi et écris-moi 😔</p>
         </div>
     </div>
 
@@ -161,23 +174,25 @@ Pardonne-moi, Saiba. Ce n’est pas la première fois que je fais une erreur, ma
         function showExcuses() {
             document.getElementById("mainInterface").classList.add("hidden");
             document.getElementById("excusesInterface").classList.remove("hidden");
-            document.querySelector("#excusesInterface .content").style.display = "block";
         }
 
         function showImages() {
             document.getElementById("mainInterface").classList.add("hidden");
             document.getElementById("imagesInterface").classList.remove("hidden");
-            document.querySelector("#imagesInterface .content").style.display = "block";
+        }
+
+        function goBack() {
+            document.getElementById("excusesInterface").classList.add("hidden");
+            document.getElementById("imagesInterface").classList.add("hidden");
+            document.getElementById("mainInterface").classList.remove("hidden");
         }
 
         function playMusic() {
             let audio = document.getElementById("background-music");
             let playPromise = audio.play();
             if (playPromise !== undefined) {
-                playPromise.then(() => {
-                    console.log("Musique jouée");
-                }).catch(() => {
-                    console.log("Lecture automatique bloquée");
+                playPromise.catch(() => {
+                    console.log("Lecture automatique bloquée.");
                 });
             }
         }
