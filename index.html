@@ -24,7 +24,6 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 20px;
         }
         .background {
             position: absolute;
@@ -38,6 +37,7 @@
             font-weight: bold;
             opacity: 0;
             animation: fadeIn 4s forwards;
+            padding: 20px;
         }
         @keyframes fadeIn {
             0% { opacity: 0; }
@@ -67,6 +67,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            text-align: center;
             padding: 20px;
             overflow-y: auto;
         }
@@ -89,18 +90,10 @@
             padding: 20px;
             font-size: 18px;
         }
-        .images {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-            overflow-y: auto;
-            max-height: 60vh;
-        }
         .images img {
             width: 100%;
             max-width: 400px;
-            border-radius: 10px;
+            margin-bottom: 10px;
             transition: transform 0.5s;
         }
         .images img:hover {
@@ -112,21 +105,30 @@
     <div class="container" id="intro">
         <div class="background"></div>
         <div class="text">Saiba, je suis vraiment désolé...<br>Alors pitié ne quitte pas le site.<br>Pitié vas jusqu'au bout.</div>
-        <button class="continue" onclick="showMain()">Commencer</button>
+        <button class="continue" onclick="showMain()">Continuer</button>
     </div>
 
     <div class="interface hidden" id="mainInterface">
-        <div class="case" onclick="showContent('excusesInterface')">💬 Excuses</div>
-        <div class="case" onclick="showContent('imagesInterface')">🖼️ Images</div>
+        <div class="case" onclick="showExcuses()">💬 Excuses</div>
+        <div class="case" onclick="showImages()">🖼️ Images</div>
     </div>
 
     <div class="interface hidden" id="excusesInterface">
         <div class="content">
-            <p>Saiba… Je ne sais même pas par où commencer. Je suis désolé… 😔</p>
-            <p>Je regrette chaque mot mal placé, chaque phrase qui a pu te blesser.</p>
-            <p>Je suis un idiot, mais je veux que tu voies que je tiens vraiment à toi.</p>
-            <p>Si je pouvais remonter le temps, je ne referais pas cette erreur...</p>
-            <p>Pardonne-moi, Saiba. 😭</p>
+            <p>Saiba…
+
+Je ne sais même pas par où commencer. Je suis désolé… Désolé d’avoir écrit ces mots, d’avoir blessé quelqu’un qui ne méritait pas ça. Je ne voulais pas… Je te jure que ce n’était pas mon intention.
+
+Saiba, Uchiwa de ton vrai nom… non, désolé, je ne sais pas. Je ne t’ai jamais demandé ça, et aujourd’hui je me rends compte que je ne connais même pas cette partie de toi… et pourtant, tu comptes énormément pour moi.
+
+Je ne savais pas que mes paroles allaient te toucher de cette manière. Je ne savais pas qu’en essayant juste de provoquer une réaction, j’étais en train de te faire du mal. Je ne savais pas… et c’est bien ça le problème. J’aurais dû savoir. J’aurais dû réfléchir.
+
+Et maintenant, je regrette. Je regrette chaque mot mal placé, chaque phrase qui a pu te faire douter, chaque seconde où j’ai été maladroit.
+
+Je suis horrible, je le sais… mais ce que je ressens pour toi est réel. Ce que je veux, c’est juste qu’on puisse se parler, se comprendre, que tu voies que je ne suis pas qu’un idiot qui écrit n’importe quoi sans réfléchir.
+
+Pardonne-moi, Saiba. Ce n’est pas la première fois que je fais une erreur, mais je veux que ce soit la dernière. Je veux apprendre. Je veux être meilleur. 😔</p>
+            <p>Tu me comprends ? 🥹</p>
         </div>
     </div>
 
@@ -143,7 +145,7 @@
                 <img src="7.jpg">
                 <img src="8.jpg">
             </div>
-            <p>Pitié, pardonne-moi... 😭</p>
+            <p>Pitié, pardonne-moi… 😔</p>
         </div>
     </div>
 
@@ -157,24 +159,14 @@
             document.getElementById("mainInterface").classList.remove("hidden");
         }
 
-        function showContent(sectionId) {
-            document.querySelectorAll(".interface").forEach(section => {
-                section.classList.add("hidden");
-            });
-            document.getElementById(sectionId).classList.remove("hidden");
+        function showExcuses() {
+            document.getElementById("mainInterface").classList.add("hidden");
+            document.getElementById("excusesInterface").classList.remove("hidden");
         }
 
-        function goBack() {
-            if (!document.getElementById("excusesInterface").classList.contains("hidden") ||
-                !document.getElementById("imagesInterface").classList.contains("hidden")) {
-                document.querySelectorAll(".interface").forEach(section => {
-                    section.classList.add("hidden");
-                });
-                document.getElementById("mainInterface").classList.remove("hidden");
-            } else {
-                document.getElementById("intro").classList.remove("hidden");
-                document.getElementById("mainInterface").classList.add("hidden");
-            }
+        function showImages() {
+            document.getElementById("mainInterface").classList.add("hidden");
+            document.getElementById("imagesInterface").classList.remove("hidden");
         }
 
         document.addEventListener("click", function () {
@@ -188,7 +180,7 @@
         });
 
         window.addEventListener("popstate", function () {
-            goBack();
+            location.reload();
         });
     </script>
 </body>
