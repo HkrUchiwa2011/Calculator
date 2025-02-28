@@ -99,6 +99,18 @@
         .images img:hover {
             transform: scale(1.05);
         }
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background: white;
+            color: black;
+            border: none;
+            cursor: pointer;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -114,27 +126,17 @@
     </div>
 
     <div class="interface hidden" id="excusesInterface">
+        <button class="back-btn" onclick="goBack()">⬅ Retour</button>
         <div class="content">
-            <p>Saiba…
-
-Je ne sais même pas par où commencer. Je suis désolé… Désolé d’avoir écrit ces mots, d’avoir blessé quelqu’un qui ne méritait pas ça. Je ne voulais pas… Je te jure que ce n’était pas mon intention.
-
-Saiba, Uchiwa de ton vrai nom… non, désolé, je ne sais pas. Je ne t’ai jamais demandé ça, et aujourd’hui je me rends compte que je ne connais même pas cette partie de toi… et pourtant, tu comptes énormément pour moi.
-
-Je ne savais pas que mes paroles allaient te toucher de cette manière. Je ne savais pas qu’en essayant juste de provoquer une réaction, j’étais en train de te faire du mal. Je ne savais pas… et c’est bien ça le problème. J’aurais dû savoir. J’aurais dû réfléchir.
-
-Et maintenant, je regrette. Je regrette chaque mot mal placé, chaque phrase qui a pu te faire douter, chaque seconde où j’ai été maladroit.
-
-Je suis horrible, je le sais… mais ce que je ressens pour toi est réel. Ce que je veux, c’est juste qu’on puisse se parler, se comprendre, que tu voies que je ne suis pas qu’un idiot qui écrit n’importe quoi sans réfléchir.
-
-Pardonne-moi, Saiba. Ce n’est pas la première fois que je fais une erreur, mais je veux que ce soit la dernière. Je veux apprendre. Je veux être meilleur. 😔</p>
-            <p>Tu me comprends ? 🥹</p>
+            <p>Saiba…<br>Je ne sais même pas par où commencer. Je suis désolé… Désolé d’avoir écrit ces mots...</p>
+            <p>Pitié, pardonne-moi… 😔</p>
         </div>
     </div>
 
     <div class="interface hidden" id="imagesInterface">
+        <button class="back-btn" onclick="goBack()">⬅ Retour</button>
         <div class="content">
-            <p>Voici les images que j'ai pu te trouver, j'espère qu'elles te plairont 😔</p>
+            <p>Voici les images que j'ai trouvées, j'espère qu'elles te plairont 😔</p>
             <div class="images">
                 <img src="1.jpg">
                 <img src="2.jpg">
@@ -160,13 +162,31 @@ Pardonne-moi, Saiba. Ce n’est pas la première fois que je fais une erreur, ma
         }
 
         function showExcuses() {
-            document.getElementById("mainInterface").classList.add("hidden");
+            hideAll();
             document.getElementById("excusesInterface").classList.remove("hidden");
+            showBackButton();
         }
 
         function showImages() {
-            document.getElementById("mainInterface").classList.add("hidden");
+            hideAll();
             document.getElementById("imagesInterface").classList.remove("hidden");
+            showBackButton();
+        }
+
+        function hideAll() {
+            document.getElementById("mainInterface").classList.add("hidden");
+            document.getElementById("excusesInterface").classList.add("hidden");
+            document.getElementById("imagesInterface").classList.add("hidden");
+        }
+
+        function showBackButton() {
+            document.querySelectorAll(".back-btn").forEach(btn => btn.style.display = "block");
+        }
+
+        function goBack() {
+            hideAll();
+            document.getElementById("mainInterface").classList.remove("hidden");
+            document.querySelectorAll(".back-btn").forEach(btn => btn.style.display = "none");
         }
 
         document.addEventListener("click", function () {
@@ -180,7 +200,7 @@ Pardonne-moi, Saiba. Ce n’est pas la première fois que je fais une erreur, ma
         });
 
         window.addEventListener("popstate", function () {
-            location.reload();
+            goBack();
         });
     </script>
 </body>
