@@ -147,7 +147,7 @@ Pardonne-moi, Saiba. Ce n’est pas la première fois que je fais une erreur, ma
         </div>
     </div>
 
-    <audio id="background-music" autoplay loop>
+    <audio id="background-music">
         <source src="music.mp3" type="audio/mp3">
     </audio>
 
@@ -155,25 +155,37 @@ Pardonne-moi, Saiba. Ce n’est pas la première fois que je fais une erreur, ma
         function showMain() {
             document.getElementById("intro").classList.add("hidden");
             document.getElementById("mainInterface").classList.remove("hidden");
+            playMusic();
         }
 
         function showExcuses() {
             document.getElementById("mainInterface").classList.add("hidden");
             document.getElementById("excusesInterface").classList.remove("hidden");
+            document.querySelector("#excusesInterface .content").style.display = "block";
         }
 
         function showImages() {
             document.getElementById("mainInterface").classList.add("hidden");
             document.getElementById("imagesInterface").classList.remove("hidden");
+            document.querySelector("#imagesInterface .content").style.display = "block";
         }
 
-        document.addEventListener("click", function () {
-            document.getElementById("background-music").play();
-        });
+        function playMusic() {
+            let audio = document.getElementById("background-music");
+            let playPromise = audio.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    console.log("Musique jouée");
+                }).catch(() => {
+                    console.log("Lecture automatique bloquée");
+                });
+            }
+        }
 
+        document.addEventListener("click", playMusic);
         document.addEventListener("visibilitychange", function() {
             if (document.visibilityState === "visible") {
-                document.getElementById("background-music").play();
+                playMusic();
             }
         });
     </script>
