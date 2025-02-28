@@ -120,10 +120,17 @@
         window.onpopstate = function() {
             goBack();
         };
-    </script>
-<audio id="bg-music" loop autoplay>
-    <source src="music.mp3" type="audio/mpeg">
-    Votre navigateur ne supporte pas l'audio.
-</audio>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const audio = document.getElementById('bg-music');
+    
+    function playMusic() {
+        audio.play().catch(error => console.log("Lecture bloquée :", error));
+        document.removeEventListener('click', playMusic);
+    }
+    
+    document.addEventListener('click', playMusic);
+});
+</script>
 </body>
 </html>
